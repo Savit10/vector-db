@@ -34,6 +34,7 @@ If you design it differently, update `tests/` and `bench/` to match.
   - `add(const float* data, const std::vector<VectorId>& ids)`: data is row-major
   - `search(const float* query, size_t k)`: returns `std::vector<SearchResult>`, closest first, at most k results
   - `size()`
+  - `search_batch(const float* queries, size_t nq, size_t k) const`: returns `std::vector<std::vector<SearchResult>>`, where `result[q]` matches `search(&queries[q * dim], k)` (step 2, tested in `tests/test_search_batch.cpp`)
 
 ## Roadmap
 

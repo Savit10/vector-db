@@ -1,35 +1,7 @@
-// Minimal dependency-free test runner. Swap for GoogleTest/Catch2 later if you want.
 #include <algorithm>
 #include <cmath>
-#include <cstdio>
-#include <exception>
-#include <functional>
-#include <random>
-#include <string>
-#include <vector>
 
-#include "vdb/flat_index.h"
-
-static int g_failures = 0;
-
-#define CHECK(cond)                                                              \
-    do {                                                                         \
-        if (!(cond)) {                                                           \
-            std::printf("    FAIL %s:%d: %s\n", __FILE__, __LINE__, #cond);      \
-            ++g_failures;                                                        \
-        }                                                                        \
-    } while (0)
-
-static void run(const std::string& name, const std::function<void()>& fn) {
-    int before = g_failures;
-    try {
-        fn();
-    } catch (const std::exception& e) {
-        std::printf("    FAIL exception: %s\n", e.what());
-        ++g_failures;
-    }
-    std::printf("[%s] %s\n", g_failures == before ? " OK " : "FAIL", name.c_str());
-}
+#include "test_util.h"
 
 using namespace vdb;
 
@@ -106,7 +78,5 @@ int main() {
         CHECK(res.size() == 1 && res[0].id == 3);
     });
 
-    std::printf("\n%s (%d failure%s)\n", g_failures ? "FAILED" : "ALL PASSED", g_failures,
-                g_failures == 1 ? "" : "s");
-    return g_failures ? 1 : 0;
+    return report();
 }

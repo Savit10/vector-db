@@ -22,3 +22,11 @@ add_test(NAME flat_index COMMAND test_flat_index)
 
 add_executable(bench_flat bench/bench_flat.cpp)
 target_link_libraries(bench_flat PRIVATE vdb)
+
+# search_batch: these targets compile only once FlatIndex::search_batch exists.
+add_executable(test_search_batch tests/test_search_batch.cpp)
+target_link_libraries(test_search_batch PRIVATE vdb)
+add_test(NAME search_batch COMMAND test_search_batch)
+
+add_executable(bench_batch bench/bench_batch.cpp)
+target_link_libraries(bench_batch PRIVATE vdb)

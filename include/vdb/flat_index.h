@@ -87,6 +87,7 @@ class FlatIndex {
         void add(const float* data, const std::vector<VectorId>& ids);
         std::vector<SearchResult> search (const float*query, std::size_t k) const;
         std::size_t size() const { return ids_.size();};
+        std::vector<std::vector<SearchResult>> search_batch(const float* queries, std::size_t nq, std::size_t k) const;
         
 
 };
